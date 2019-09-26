@@ -1,0 +1,47 @@
+#Generates cost of ground shipping given weight
+def ground(weight):
+  if weight <= 2:
+    cost = weight * 1.50 + 20.00
+  elif weight <= 6:
+    cost = weight * 3.00 + 20.00
+  elif weight <= 10:
+    cost = weight * 4.00 + 20.00
+  elif weight > 10:
+    cost = weight * 4.75 + 20.00
+  return cost
+
+#Test - should result in 53.6
+print(ground(8.4))
+
+#Flat price of premium ground shipping regardless of weight
+premium_ground = 125.00
+
+#Generates cost of drone shipping given weight (3x ground shipping)
+def drone(weight):
+  if weight <= 2:
+    cost = weight * 4.50
+  elif weight <= 6:
+    cost = weight * 9.00
+  elif weight <= 10:
+    cost = weight * 12.00
+  elif weight > 10:
+    cost = weight * 14.25
+  return cost
+
+#Test - should return 6.75
+print(drone(1.5))
+
+#Finds which shipping method is cheapest
+def cheapest_shipping(weight):
+  if ground(weight) < drone(weight) and ground(weight) < premium_ground:
+    return "Ground Shipping is the cheapest and costs $" + str(ground(weight)) +"."
+  elif drone(weight) < ground(weight) and drone(weight) < premium_ground:
+    return "Drone Shipping is the cheapest and costs $" + str(drone(weight)) + "."
+  elif premium_ground < ground(weight) and premium_ground < drone(weight):
+    return "Premium ground shipping is the cheapest and costs $125.00."
+
+#Test 1
+print(cheapest_shipping(4.8))
+
+#Test 2
+print(cheapest_shipping(41.5))
